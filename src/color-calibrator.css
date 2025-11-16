@@ -11,10 +11,11 @@
     letter-spacing: var(--calibrator-letter-spacing);
 }
 
+/* FLOATING BUTTON - BOTTOM RIGHT CORNER */
 .calibrator-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    position: absolute; /* FOLLOWS PAGE SCROLL */
+    bottom: 20px; /* 20px from bottom of visible area */
+    right: 20px; /* 20px from right of visible area */
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -26,6 +27,7 @@
     z-index: 10000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
+    top: auto !important; /* Override any top positioning */
 }
 
 .calibrator-btn:hover {
@@ -37,12 +39,13 @@
     background: #dc3545;
 }
 
+/* SIDEBAR - FOLLOWS SCROLL */
 .calibrator-sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
+    position: absolute; /* FOLLOWS PAGE SCROLL */
+    top: 0; /* Starts at top of page */
+    right: 0; /* Right side of page */
     width: 380px;
-    height: 100vh;
+    height: 100vh; /* Full viewport height */
     background: white;
     box-shadow: -2px 0 10px rgba(0,0,0,0.1);
     z-index: 9999;
@@ -54,13 +57,23 @@
     display: block; /* Show when open */
 }
 
+/* Make sidebar content scrollable if needed */
+.calibrator-content {
+    padding: 20px;
+    height: calc(100vh - 60px); /* Full viewport minus header */
+    overflow-y: auto;
+}
+
 .calibrator-header {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid #eee;
-    background: #f8f9fa;
+    z-index: 1;
 }
 
 .calibrator-header h3 {
@@ -84,10 +97,6 @@
 
 .close-btn:hover {
     color: #333;
-}
-
-.calibrator-content {
-    padding: 20px;
 }
 
 .control-section {
@@ -225,4 +234,23 @@
 
 .save-btn:hover {
     background: #218838;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .calibrator-sidebar {
+        width: 100vw;
+    }
+    
+    .calibrator-btn {
+        bottom: 10px;
+        right: 10px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px !important;
+    }
+    
+    .profile-buttons {
+        grid-template-columns: 1fr;
+    }
 }

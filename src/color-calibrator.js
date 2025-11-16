@@ -2,6 +2,7 @@ class ColorCalibrator {
     constructor() {
         this.isOpen = false;
         this.settings = this.loadSettings();
+        this.lastScrollY = 0;
         this.init();
     }
 
@@ -9,6 +10,7 @@ class ColorCalibrator {
         this.createButton();
         this.createSidebar();
         this.applySettings();
+        this.setupScrollFollowing();
     }
 
     createButton() {
@@ -137,6 +139,42 @@ class ColorCalibrator {
         this.loadProfilesIntoSelect();
     }
 
+    setupScrollFollowing() {
+        let ticking = false;
+        
+        const updatePosition = () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // Only update if scroll position changed significantly
+            if (Math.abs(scrollY - this.lastScrollY) > 1) {
+                this.lastScrollY = scrollY;
+                
+                // Calculate button position - bottom right, 20px from bottom of visible area
+                const buttonBottom = 20 + (documentHeight - (scrollY + windowHeight));
+                this.button.style.bottom = `${Math.max(20, buttonBottom)}px`;
+                this.button.style.top = 'auto';
+                
+                if (this.isOpen) {
+                    this.sidebar.style.top = `${scrollY}px`;
+                }
+            }
+            ticking = false;
+        };
+        
+        const onScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(updatePosition);
+                ticking = true;
+            }
+        };
+        
+        window.addEventListener('scroll', onScroll, { passive: true });
+        // Initial position update
+        updatePosition();
+    }
+
     setupEventListeners() {
         this.sidebar.querySelector('.close-btn').addEventListener('click', () => this.toggleSidebar());
         this.sidebar.querySelector('#resetBtn').addEventListener('click', () => this.resetSettings());
@@ -166,6 +204,12 @@ class ColorCalibrator {
         this.isOpen = !this.isOpen;
         this.sidebar.style.display = this.isOpen ? 'block' : 'none';
         this.button.classList.toggle('active', this.isOpen);
+        
+        // Update sidebar position when opening
+        if (this.isOpen) {
+            const scrollY = window.scrollY;
+            this.sidebar.style.top = `${scrollY}px`;
+        }
     }
 
     updateValueDisplay(input) {
