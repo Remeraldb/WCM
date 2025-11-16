@@ -1,0 +1,228 @@
+:root {
+    --calibrator-font-size: 16px;
+    --calibrator-line-height: 1.5;
+    --calibrator-letter-spacing: 0px;
+}
+
+/* Apply base styles to ALL elements including sidebar */
+* {
+    font-size: var(--calibrator-font-size);
+    line-height: var(--calibrator-line-height);
+    letter-spacing: var(--calibrator-letter-spacing);
+}
+
+.calibrator-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #007bff;
+    color: white;
+    border: none;
+    font-size: 24px !important;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.calibrator-btn:hover {
+    transform: scale(1.1);
+    background: #0056b3;
+}
+
+.calibrator-btn.active {
+    background: #dc3545;
+}
+
+.calibrator-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    z-index: 9999;
+    display: none; /* Hidden by default */
+    overflow-y: auto;
+}
+
+.calibrator-sidebar.open {
+    display: block; /* Show when open */
+}
+
+.calibrator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: #f8f9fa;
+}
+
+.calibrator-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px !important;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px !important;
+    cursor: pointer;
+    color: #666;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.calibrator-content {
+    padding: 20px;
+}
+
+.control-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.control-section:last-child {
+    border-bottom: none;
+}
+
+.control-section h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px !important;
+    font-weight: 600;
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px !important;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.control-group .value {
+    display: block;
+    text-align: right;
+    color: #666;
+    font-size: 12px !important;
+}
+
+.profile-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.vision-profile {
+    padding: 10px 8px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px !important;
+    transition: all 0.2s ease;
+}
+
+.vision-profile:hover {
+    background: #f8f9fa;
+    border-color: #007bff;
+}
+
+.vision-profile:active {
+    background: #007bff;
+    color: white;
+}
+
+.profile-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.profile-controls input,
+.profile-controls select {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px !important;
+}
+
+.profile-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px !important;
+    white-space: nowrap;
+}
+
+.profile-btn.delete {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.profile-btn.delete:hover {
+    background: #c82333;
+}
+
+.control-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.reset-btn, .save-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px !important;
+}
+
+.reset-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.reset-btn:hover {
+    background: #545b62;
+}
+
+.save-btn {
+    background: #28a745;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #218838;
+}
