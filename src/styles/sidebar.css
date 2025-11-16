@@ -1,44 +1,3 @@
-:root {
-    --calibrator-font-size: 16px;
-    --calibrator-line-height: 1.5;
-    --calibrator-letter-spacing: 0px;
-}
-
-/* Apply base styles to ALL elements including sidebar */
-* {
-    font-size: var(--calibrator-font-size);
-    line-height: var(--calibrator-line-height);
-    letter-spacing: var(--calibrator-letter-spacing);
-}
-
-/* FLOATING BUTTON - BOTTOM RIGHT CORNER */
-.calibrator-btn {
-    position: absolute; /* FOLLOWS PAGE SCROLL */
-    bottom: 20px; /* 20px from bottom of visible area */
-    right: 20px; /* 20px from right of visible area */
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #007bff;
-    color: white;
-    border: none;
-    font-size: 24px !important;
-    cursor: pointer;
-    z-index: 10000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    top: auto !important; /* Override any top positioning */
-}
-
-.calibrator-btn:hover {
-    transform: scale(1.1);
-    background: #0056b3;
-}
-
-.calibrator-btn.active {
-    background: #dc3545;
-}
-
 /* SIDEBAR - FOLLOWS SCROLL */
 .calibrator-sidebar {
     position: absolute; /* FOLLOWS PAGE SCROLL */
@@ -242,15 +201,11 @@
         width: 100vw;
     }
     
-    .calibrator-btn {
-        bottom: 10px;
-        right: 10px;
-        width: 44px;
-        height: 44px;
-        font-size: 20px !important;
-    }
-    
     .profile-buttons {
         grid-template-columns: 1fr;
+    }
+    
+    .profile-controls {
+        flex-wrap: wrap;
     }
 }

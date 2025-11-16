@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color Calibrator Demo</title>
-    <link rel="stylesheet" href="../src/color-calibrator.css">
+    <!-- PROPER CSS LINKS -->
+    <link rel="stylesheet" href="../src/styles/main.css">
+    <link rel="stylesheet" href="../src/styles/button.css">
+    <link rel="stylesheet" href="../src/styles/sidebar.css">
     <style>
-        /* Reset and base styles */
         * {
             box-sizing: border-box;
             transition: filter 0.3s ease;
@@ -77,6 +79,22 @@
             background: #f8f9fa;
             border-radius: 4px;
         }
+
+        .long-content {
+            height: 2000px;
+            background: linear-gradient(180deg, #f8f9fa 0%, white 100%);
+            margin: 40px 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .scroll-indicator {
+            text-align: center;
+            padding: 20px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +102,12 @@
         <h1>Color Calibrator Demo Page</h1>
         
         <div class="content">
-            <p>This is a demonstration page for the Color Calibrator module. Click the floating button in the top-right corner to open the calibration panel.</p>
+            <p>This is a demonstration page for the Color Calibrator module. Click the floating button in the bottom-right corner to open the calibration panel.</p>
+            
+            <div class="scroll-indicator">
+                <strong>Scroll down to test the scroll following!</strong><br>
+                The calibrator button will follow you as you scroll.
+            </div>
             
             <h2>Test Content</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -112,12 +135,33 @@
             
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
             
-            <p>More content to test scrolling and layout:</p>
+            <h2>More Scrollable Content</h2>
+            <div class="long-content">
+                <h3>Scroll Test Area</h3>
+                <p>This area is intentionally tall to demonstrate that the calibrator follows you as you scroll.</p>
+                <p>Try scrolling up and down - the calibrator button will always be accessible in the bottom-right corner!</p>
+                
+                <div style="height: 500px; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center;">
+                        <h4>Middle of scroll area</h4>
+                        <p>The calibrator should still be visible in the corner!</p>
+                    </div>
+                </div>
+                
+                <p>End of scroll test area. Keep scrolling to see more content below.</p>
+            </div>
+            
+            <h2>Bottom Content</h2>
             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
             <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            
+            <div class="text-sample">
+                <h3>Final Test Section</h3>
+                <p>This is the bottom of the page. The calibrator should still be accessible regardless of your scroll position.</p>
+            </div>
         </div>
     </div>
 
-    <script src="../src/color-calibrator.js"></script>
+    <script type="module" src="../src/index.js"></script>
 </body>
 </html>
