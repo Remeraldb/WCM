@@ -13,6 +13,11 @@ export class Button {
         
         this.element.addEventListener('click', this.onClick);
         document.body.appendChild(this.element);
+        
+        // Ensure it's immediately visible
+        this.element.style.display = 'block';
+        this.element.style.visibility = 'visible';
+        this.element.style.opacity = '1';
     }
 
     setActive(active) {

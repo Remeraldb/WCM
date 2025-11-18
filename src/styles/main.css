@@ -4,8 +4,8 @@
     --calibrator-letter-spacing: 0px;
 }
 
-/* Apply base styles to ALL elements including sidebar */
-* {
+/* Apply base styles to ALL elements EXCEPT the calibrator button and sidebar */
+*:not(.calibrator-btn):not(.calibrator-sidebar *):not(.calibrator-btn *) {
     font-size: var(--calibrator-font-size);
     line-height: var(--calibrator-line-height);
     letter-spacing: var(--calibrator-letter-spacing);

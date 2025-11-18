@@ -84,4 +84,8 @@ export class ColorCalibrator {
     getVisionProfiles() {
         return this.profileManager.getVisionProfiles();
     }
+
+    getProfileCategories() {
+        return this.profileManager.getProfileCategories();
+    }
 }

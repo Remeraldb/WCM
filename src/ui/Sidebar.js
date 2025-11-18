@@ -19,6 +19,8 @@ export class Sidebar {
     updateContent() {
         const settings = this.calibrator.getCurrentSettings();
         const customProfiles = this.calibrator.getCustomProfiles();
+        const profileCategories = this.calibrator.getProfileCategories();
+        const visionProfiles = this.calibrator.getVisionProfiles();
         
         this.element.innerHTML = `
             <div class="calibrator-header">
@@ -96,15 +98,41 @@ export class Sidebar {
                 </div>
 
                 <div class="control-section">
-                    <h4>Vision Simulation Profiles</h4>
-                    <div class="profile-buttons">
-                        <button class="vision-profile" data-profile="normal">Normal Vision</button>
-                        <button class="vision-profile" data-profile="protanopia">Protanopia</button>
-                        <button class="vision-profile" data-profile="deuteranopia">Deuteranopia</button>
-                        <button class="vision-profile" data-profile="tritanopia">Tritanopia</button>
-                        <button class="vision-profile" data-profile="achromatopsia">Monochrome</button>
-                        <button class="vision-profile" data-profile="high-contrast">High Contrast</button>
-                        <button class="vision-profile" data-profile="low-vision">Low Vision</button>
+                    <h4>Accessibility Profiles</h4>
+                    
+                    <div class="profile-category">
+                        <h5>Color Blindness</h5>
+                        <div class="profile-buttons">
+                            ${this.renderProfileButtons(profileCategories['color-blindness'], visionProfiles)}
+                        </div>
+                    </div>
+                    
+                    <div class="profile-category">
+                        <h5>Visual Impairment</h5>
+                        <div class="profile-buttons">
+                            ${this.renderProfileButtons(profileCategories['visual-impairment'], visionProfiles)}
+                        </div>
+                    </div>
+                    
+                    <div class="profile-category">
+                        <h5>Reading Support</h5>
+                        <div class="profile-buttons">
+                            ${this.renderProfileButtons(profileCategories['reading-support'], visionProfiles)}
+                        </div>
+                    </div>
+                    
+                    <div class="profile-category">
+                        <h5>Sensory Support</h5>
+                        <div class="profile-buttons">
+                            ${this.renderProfileButtons(profileCategories['sensory-support'], visionProfiles)}
+                        </div>
+                    </div>
+                    
+                    <div class="profile-category">
+                        <h5>Display Optimization</h5>
+                        <div class="profile-buttons">
+                            ${this.renderProfileButtons(profileCategories['display-optimization'], visionProfiles)}
+                        </div>
                     </div>
                 </div>
 
@@ -130,6 +158,61 @@ export class Sidebar {
                 </div>
             </div>
         `;
+    }
+
+    renderProfileButtons(profileKeys, visionProfiles) {
+        const profileLabels = {
+            'normal': 'Normal Vision',
+            'protanopia': 'Protanopia',
+            'deuteranopia': 'Deuteranopia',
+            'tritanopia': 'Tritanopia',
+            'achromatopsia': 'Monochrome',
+            'high-contrast': 'High Contrast',
+            'low-vision': 'Low Vision',
+            'dyslexia-friendly': 'Dyslexia',
+            'adhd-friendly': 'ADHD',
+            'autism-friendly': 'Autism',
+            'light-sensitivity': 'Light Sensitive',
+            'dark-mode': 'Dark Mode',
+            'blue-light-filter': 'Blue Light',
+            'high-saturation': 'High Saturation',
+            'print-friendly': 'Print Friendly',
+            'migraine-friendly': 'Migraine',
+            'cataract-friendly': 'Cataract',
+            'glaucoma-friendly': 'Glaucoma',
+            'macular-friendly': 'Macular'
+        };
+
+        return profileKeys.map(key => `
+            <button class="vision-profile" data-profile="${key}" title="${this.getProfileDescription(key)}">
+                ${profileLabels[key] || key}
+            </button>
+        `).join('');
+    }
+
+    getProfileDescription(profileKey) {
+        const descriptions = {
+            'normal': 'Standard display settings',
+            'protanopia': 'Red-green color blindness (red deficiency)',
+            'deuteranopia': 'Red-green color blindness (green deficiency)',
+            'tritanopia': 'Blue-yellow color blindness',
+            'achromatopsia': 'Complete color blindness (monochrome)',
+            'high-contrast': 'Maximum contrast for better visibility',
+            'low-vision': 'Enhanced settings for visual impairment',
+            'dyslexia-friendly': 'Improved readability for dyslexia',
+            'adhd-friendly': 'Reduced distractions and better focus',
+            'autism-friendly': 'Reduced sensory overload',
+            'light-sensitivity': 'Reduced brightness for light sensitivity',
+            'dark-mode': 'Inverted colors for dark theme',
+            'blue-light-filter': 'Reduced blue light for eye comfort',
+            'high-saturation': 'Vibrant colors for better distinction',
+            'print-friendly': 'Optimized for printing and reading',
+            'migraine-friendly': 'Reduced triggers for migraine sufferers',
+            'cataract-friendly': 'Enhanced settings for cataract vision',
+            'glaucoma-friendly': 'Optimized for glaucoma conditions',
+            'macular-friendly': 'Enhanced for macular degeneration'
+        };
+        return descriptions[profileKey] || 'Accessibility profile';
     }
 
     setupEventListeners() {

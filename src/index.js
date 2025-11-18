@@ -11,7 +11,7 @@ class ColorCalibratorApp {
     }
 
     init() {
-        // Create UI components
+        // Create UI components immediately
         this.button = new Button(() => this.toggleSidebar());
         this.sidebar = new Sidebar(
             this.calibrator,
@@ -20,7 +20,7 @@ class ColorCalibratorApp {
             (action, data) => this.onProfileAction(action, data)
         );
         
-        // Setup scroll following
+        // Setup scroll following immediately
         this.scrollManager = new ScrollManager(
             this.button.getElement(),
             this.sidebar.getElement()
@@ -28,6 +28,20 @@ class ColorCalibratorApp {
 
         // Apply initial settings
         this.calibrator.applySettings();
+
+        // Force immediate visibility
+        this.ensureButtonVisibility();
+    }
+
+    ensureButtonVisibility() {
+        // Double-check button is visible
+        const button = this.button.getElement();
+        button.style.display = 'block';
+        button.style.visibility = 'visible';
+        button.style.opacity = '1';
+        
+        // Force a reflow to ensure styles are applied
+        button.offsetHeight;
     }
 
     toggleSidebar() {
@@ -83,11 +97,22 @@ class ColorCalibratorApp {
     }
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.colorCalibrator = new ColorCalibratorApp();
-    });
-} else {
+// Initialize immediately when DOM is ready
+function initializeApp() {
     window.colorCalibrator = new ColorCalibratorApp();
+    
+    // Double-check everything is visible after a short delay
+    setTimeout(() => {
+        if (window.colorCalibrator && window.colorCalibrator.button) {
+            const button = window.colorCalibrator.button.getElement();
+            button.style.display = 'block';
+            button.style.visibility = 'visible';
+        }
+    }, 100);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
 }

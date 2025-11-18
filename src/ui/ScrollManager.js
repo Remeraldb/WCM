@@ -2,8 +2,9 @@ export class ScrollManager {
     constructor(buttonElement, sidebarElement) {
         this.button = buttonElement;
         this.sidebar = sidebarElement;
-        this.lastScrollY = 0;
+        this.lastScrollY = window.scrollY;
         this.setupScrollFollowing();
+        this.updatePosition(); // Immediate positioning on load
     }
 
     setupScrollFollowing() {
@@ -11,16 +12,13 @@ export class ScrollManager {
         
         const updatePosition = () => {
             const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
             
             if (Math.abs(scrollY - this.lastScrollY) > 1) {
                 this.lastScrollY = scrollY;
                 
-                // Calculate button position - bottom right, 20px from bottom of visible area
-                const buttonBottom = 20 + (documentHeight - (scrollY + windowHeight));
-                this.button.style.bottom = `${Math.max(20, buttonBottom)}px`;
-                this.button.style.top = 'auto';
+                // Update button position to follow scroll
+                this.button.style.top = `${20 + scrollY}px`;
+                this.button.style.bottom = 'auto';
                 
                 if (this.sidebar.style.display === 'block') {
                     this.sidebar.style.top = `${scrollY}px`;
@@ -37,7 +35,16 @@ export class ScrollManager {
         };
         
         window.addEventListener('scroll', onScroll, { passive: true });
-        updatePosition();
+    }
+
+    updatePosition() {
+        const scrollY = window.scrollY;
+        this.button.style.top = `${20 + scrollY}px`;
+        this.button.style.bottom = 'auto';
+        
+        if (this.sidebar.style.display === 'block') {
+            this.sidebar.style.top = `${scrollY}px`;
+        }
     }
 
     updateSidebarPosition() {

@@ -209,3 +209,58 @@
         flex-wrap: wrap;
     }
 }
+
+/* Add to existing sidebar.css */
+
+.profile-category {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.profile-category h5 {
+    margin: 0 0 12px 0;
+    color: #333;
+    font-size: 14px !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-category .profile-buttons {
+    margin-bottom: 0;
+}
+
+/* Tooltip styles for profile descriptions */
+.vision-profile {
+    position: relative;
+}
+
+.vision-profile:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px !important;
+    white-space: nowrap;
+    z-index: 10000;
+    margin-bottom: 5px;
+}
+
+.vision-profile:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+    margin-bottom: -5px;
+}
