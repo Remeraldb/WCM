@@ -10,6 +10,9 @@
     z-index: 9999;
     display: none; /* Hidden by default */
     overflow-y: auto;
+    
+    /* Ensure sidebar is not affected by page wrapper filters */
+    filter: none !important;
 }
 
 .calibrator-sidebar.open {
@@ -23,6 +26,7 @@
     overflow-y: auto;
 }
 
+/* Rest of sidebar styles remain the same */
 .calibrator-header {
     position: sticky;
     top: 0;
@@ -99,11 +103,32 @@
     font-size: 12px !important;
 }
 
+.profile-category {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.profile-category h5 {
+    margin: 0 0 12px 0;
+    color: #333;
+    font-size: 14px !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .profile-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-bottom: 15px;
+}
+
+.profile-category .profile-buttons {
+    margin-bottom: 0;
 }
 
 .vision-profile {
@@ -114,6 +139,7 @@
     cursor: pointer;
     font-size: 12px !important;
     transition: all 0.2s ease;
+    position: relative;
 }
 
 .vision-profile:hover {
@@ -195,49 +221,7 @@
     background: #218838;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-    .calibrator-sidebar {
-        width: 100vw;
-    }
-    
-    .profile-buttons {
-        grid-template-columns: 1fr;
-    }
-    
-    .profile-controls {
-        flex-wrap: wrap;
-    }
-}
-
-/* Add to existing sidebar.css */
-
-.profile-category {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
-}
-
-.profile-category h5 {
-    margin: 0 0 12px 0;
-    color: #333;
-    font-size: 14px !important;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.profile-category .profile-buttons {
-    margin-bottom: 0;
-}
-
 /* Tooltip styles for profile descriptions */
-.vision-profile {
-    position: relative;
-}
-
 .vision-profile:hover::after {
     content: attr(title);
     position: absolute;
@@ -263,4 +247,19 @@
     border: 5px solid transparent;
     border-top-color: #333;
     margin-bottom: -5px;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .calibrator-sidebar {
+        width: 100vw;
+    }
+    
+    .profile-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-controls {
+        flex-wrap: wrap;
+    }
 }

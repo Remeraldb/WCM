@@ -11,14 +11,13 @@
     <style>
         * {
             box-sizing: border-box;
-            transition: filter 0.3s ease;
         }
         
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: white;
+            background: white; /* Explicit background for body */
             min-height: 100vh;
         }
         
@@ -98,11 +97,12 @@
     </style>
 </head>
 <body>
+    <!-- The page wrapper will be created automatically by the calibrator -->
     <div class="container">
         <h1>Color Calibrator Demo Page</h1>
         
         <div class="content">
-            <p>This is a demonstration page for the Color Calibrator module. Click the floating button in the bottom-right corner to open the calibration panel.</p>
+            <p>This is a demonstration page for the Color Calibrator module. Click the floating button in the top-right corner to open the calibration panel.</p>
             
             <div class="scroll-indicator">
                 <strong>Scroll down to test the scroll following!</strong><br>
@@ -139,7 +139,7 @@
             <div class="long-content">
                 <h3>Scroll Test Area</h3>
                 <p>This area is intentionally tall to demonstrate that the calibrator follows you as you scroll.</p>
-                <p>Try scrolling up and down - the calibrator button will always be accessible in the bottom-right corner!</p>
+                <p>Try scrolling up and down - the calibrator button will always be accessible in the top-right corner!</p>
                 
                 <div style="height: 500px; display: flex; align-items: center; justify-content: center;">
                     <div style="text-align: center;">
