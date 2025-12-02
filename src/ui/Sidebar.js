@@ -110,9 +110,16 @@ export class Sidebar {
                         <label>Gamma (${settings.gamma})</label>
                         <input type="range" id="gamma" min="0.5" max="2.5" step="0.1" value="${settings.gamma}">
                         <div class="demo-box advanced-demo">
-                            <div class="demo-item">Mid Tone</div>
-                            <div class="demo-item" style="background: #ccc;">Light</div>
-                            <div class="demo-item" style="background: #666; color: white;">Dark</div>
+                            <div class="demo-item" style="background: linear-gradient(to right, #000, #666, #ccc, #fff); color: #333; padding: 10px; text-align: center;">
+                                Gamma Test
+                            </div>
+                            <div class="demo-item" style="display: flex; flex-direction: column; gap: 4px; padding: 10px;">
+                                <div style="height: 4px; background: #000;"></div>
+                                <div style="height: 4px; background: #333;"></div>
+                                <div style="height: 4px; background: #666;"></div>
+                                <div style="height: 4px; background: #999;"></div>
+                                <div style="height: 4px; background: #ccc;"></div>
+                            </div>
                         </div>
                     </div>
                     

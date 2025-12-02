@@ -10,6 +10,11 @@
     z-index: 9999;
     display: none;
     overflow-y: auto;
+    
+    /* Make sidebar inherit font properties */
+    font-size: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
 }
 
 .calibrator-sidebar.open {
@@ -20,6 +25,11 @@
     padding: 20px;
     height: calc(100vh - 60px);
     overflow-y: auto;
+    
+    /* Inherit font properties */
+    font-size: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
 }
 
 .calibrator-header {
@@ -37,13 +47,15 @@
 .calibrator-header h3 {
     margin: 0;
     color: #333;
-    font-size: 18px;
+    /* Use em for relative sizing */
+    font-size: 1.125em !important; /* 18px when base is 16px */
+    font-weight: bold;
 }
 
 .close-btn {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 1.5em !important; /* 24px when base is 16px */
     cursor: pointer;
     color: #666;
     width: 30px;
@@ -71,7 +83,7 @@
 .control-section h4 {
     margin: 0 0 15px 0;
     color: #333;
-    font-size: 16px;
+    font-size: 1em !important; /* 16px when base is 16px */
     font-weight: 600;
 }
 
@@ -85,7 +97,7 @@
     margin-bottom: 8px;
     font-weight: 500;
     color: #333;
-    font-size: 14px;
+    font-size: 0.875em !important; /* 14px when base is 16px */
 }
 
 .control-group input[type="range"] {
@@ -97,26 +109,31 @@
     display: block;
     text-align: right;
     color: #666;
-    font-size: 12px;
+    font-size: 0.75em !important; /* 12px when base is 16px */
 }
 
-/* Demo Boxes */
+/* Demo Boxes - These WILL change size! */
 .demo-box {
     margin-top: 10px;
     padding: 12px;
     border-radius: 6px;
-    font-size: 12px;
     border: 1px solid #ddd;
     background: #f8f9fa;
     min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* Inherit font properties */
+    font-size: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit !important;
 }
 
 .text-demo {
     font-family: 'Georgia', serif;
     text-align: center;
+    font-size: 1em !important; /* Will change with slider */
 }
 
 .color-demo {
@@ -159,7 +176,10 @@
     border-radius: 4px;
     background: white;
     border: 1px solid #ddd;
+    font-size: 0.875em !important;
 }
+
+/* Rest of the CSS remains the same... */
 
 /* Profile Categories */
 .profile-category {
@@ -173,7 +193,7 @@
 .profile-category h5 {
     margin: 0 0 12px 0;
     color: #333;
-    font-size: 14px;
+    font-size: 0.875em !important;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -196,7 +216,7 @@
     background: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 0.75em !important;
     transition: all 0.2s ease;
     position: relative;
 }
@@ -224,7 +244,7 @@
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 0.875em !important;
 }
 
 .profile-btn {
@@ -233,7 +253,7 @@
     background: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 0.75em !important;
     white-space: nowrap;
 }
 
@@ -259,7 +279,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 0.875em !important;
     color: white;
 }
 
@@ -290,7 +310,7 @@
     color: white;
     padding: 8px 12px;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 0.75em !important;
     white-space: nowrap;
     z-index: 10000;
     margin-bottom: 5px;
@@ -322,7 +342,6 @@
     }
     
     .demo-box {
-        font-size: 10px;
         padding: 8px;
     }
 }
