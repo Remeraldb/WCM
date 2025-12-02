@@ -34,7 +34,7 @@ export class Sidebar {
                     <div class="control-group">
                         <label>Font Size (${settings.fontSize}px)</label>
                         <input type="range" id="fontSize" min="12" max="32" value="${settings.fontSize}">
-                        <div class="demo-box text-demo">
+                        <div class="demo-box text-demo" style="font-size: ${settings.fontSize}px;">
                             This text shows current font size
                         </div>
                     </div>
@@ -42,7 +42,7 @@ export class Sidebar {
                     <div class="control-group">
                         <label>Line Height (${settings.lineHeight})</label>
                         <input type="range" id="lineHeight" min="1" max="2.5" step="0.1" value="${settings.lineHeight}">
-                        <div class="demo-box text-demo">
+                        <div class="demo-box text-demo" style="line-height: ${settings.lineHeight};">
                             Multiple lines<br>to demonstrate<br>line height
                         </div>
                     </div>
@@ -50,7 +50,7 @@ export class Sidebar {
                     <div class="control-group">
                         <label>Letter Spacing (${settings.letterSpacing}px)</label>
                         <input type="range" id="letterSpacing" min="-2" max="5" step="0.1" value="${settings.letterSpacing}">
-                        <div class="demo-box text-demo">
+                        <div class="demo-box text-demo" style="letter-spacing: ${settings.letterSpacing}px;">
                             Spacing between letters
                         </div>
                     </div>
@@ -73,9 +73,9 @@ export class Sidebar {
                         <label>Contrast (${settings.contrast}%)</label>
                         <input type="range" id="contrast" min="50" max="200" value="${settings.contrast}">
                         <div class="demo-box">
-                            <div style="display: flex; gap: 10px;">
-                                <div style="background: #333; color: #fff; padding: 5px; border-radius: 3px; flex: 1;">Dark</div>
-                                <div style="background: #fff; color: #333; padding: 5px; border-radius: 3px; border: 1px solid #ccc; flex: 1;">Light</div>
+                            <div style="display: flex; gap: 10px; width: 100%;">
+                                <div style="background: #333; color: #fff; padding: 8px; border-radius: 4px; flex: 1; text-align: center;">Dark</div>
+                                <div style="background: #fff; color: #333; padding: 8px; border-radius: 4px; border: 1px solid #ccc; flex: 1; text-align: center;">Light</div>
                             </div>
                         </div>
                     </div>
@@ -94,10 +94,10 @@ export class Sidebar {
                         <label>Hue Rotation (${settings.hueRotate}deg)</label>
                         <input type="range" id="hueRotate" min="0" max="360" value="${settings.hueRotate}">
                         <div class="demo-box">
-                            <div style="display: flex; gap: 5px; justify-content: center;">
-                                <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border-radius: 3px;"></div>
-                                <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border-radius: 3px;"></div>
-                                <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border-radius: 3px;"></div>
+                            <div style="display: flex; gap: 5px; justify-content: center; width: 100%;">
+                                <div style="width: 25px; height: 25px; background: #ff0000; border-radius: 4px;"></div>
+                                <div style="width: 25px; height: 25px; background: #00ff00; border-radius: 4px;"></div>
+                                <div style="width: 25px; height: 25px; background: #0000ff; border-radius: 4px;"></div>
                             </div>
                         </div>
                     </div>
@@ -110,18 +110,20 @@ export class Sidebar {
                         <label>Gamma (${settings.gamma})</label>
                         <input type="range" id="gamma" min="0.5" max="2.5" step="0.1" value="${settings.gamma}">
                         <div class="demo-box advanced-demo">
-                            <div class="demo-item">Mid Tone</div>
+                            <div class="demo-item" style="background: #888; color: white;">Mid Tone</div>
                             <div class="demo-item" style="background: #ccc;">Light</div>
-                            <div class="demo-item" style="background: #666; color: white;">Dark</div>
+                            <div class="demo-item" style="background: #444; color: white;">Dark</div>
                         </div>
                     </div>
                     
                     <div class="control-group">
                         <label>Invert (${settings.invert}%)</label>
                         <input type="range" id="invert" min="0" max="100" value="${settings.invert}">
-                        <div class="demo-box advanced-demo">
-                            <div class="demo-item" style="background: black; color: white;">Black</div>
-                            <div class="demo-item" style="background: white; color: black; border: 1px solid #ccc;">White</div>
+                        <div class="demo-box">
+                            <div style="display: flex; gap: 10px; width: 100%;">
+                                <div style="flex: 1; background: black; color: white; padding: 8px; border-radius: 4px; text-align: center;">Black</div>
+                                <div style="flex: 1; background: white; color: black; padding: 8px; border-radius: 4px; border: 1px solid #ccc; text-align: center;">White</div>
+                            </div>
                         </div>
                     </div>
                     
@@ -129,9 +131,9 @@ export class Sidebar {
                         <label>Sepia (${settings.sepia}%)</label>
                         <input type="range" id="sepia" min="0" max="100" value="${settings.sepia}">
                         <div class="demo-box">
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;">
                                 <div style="width: 40px; height: 40px; background: #8B4513; border-radius: 4px;"></div>
-                                <span>Vintage Tone</span>
+                                <span style="font-weight: bold;">Vintage Tone</span>
                             </div>
                         </div>
                     </div>
@@ -290,7 +292,7 @@ export class Sidebar {
             });
         });
 
-        // Input listeners with live updates
+        // Input listeners with live updates and demo updates
         const inputs = this.element.querySelectorAll('input[type="range"]');
         inputs.forEach(input => {
             input.addEventListener('input', (e) => {
@@ -304,15 +306,36 @@ export class Sidebar {
                                  id === 'lineHeight' ? '' : 
                                  id === 'letterSpacing' ? 'px' : 
                                  id === 'hueRotate' ? 'deg' : '%';
-                    label.textContent = this.getLabelText(id, value) + ` (${value}${unit})`;
+                    const labelText = this.getLabelText(id);
+                    label.textContent = `${labelText} (${value}${unit})`;
                 }
+                
+                // Update demo element in real-time
+                this.updateDemoElement(id, value, e.target);
                 
                 this.onSettingChange(id, value);
             });
         });
     }
 
-    getLabelText(id, value) {
+    updateDemoElement(id, value, inputElement) {
+        const demoBox = inputElement.parentElement.querySelector('.demo-box');
+        if (!demoBox) return;
+        
+        switch(id) {
+            case 'fontSize':
+                demoBox.style.fontSize = `${value}px`;
+                break;
+            case 'lineHeight':
+                demoBox.style.lineHeight = value;
+                break;
+            case 'letterSpacing':
+                demoBox.style.letterSpacing = `${value}px`;
+                break;
+        }
+    }
+
+    getLabelText(id) {
         const labels = {
             'fontSize': 'Font Size',
             'lineHeight': 'Line Height',
@@ -329,7 +352,7 @@ export class Sidebar {
     }
 
     updateUI(settings) {
-        // Update all sliders
+        // Update all sliders and their demos
         const inputs = this.element.querySelectorAll('input[type="range"]');
         inputs.forEach(input => {
             if (settings[input.id] !== undefined) {
@@ -342,8 +365,12 @@ export class Sidebar {
                                  input.id === 'lineHeight' ? '' : 
                                  input.id === 'letterSpacing' ? 'px' : 
                                  input.id === 'hueRotate' ? 'deg' : '%';
-                    label.textContent = this.getLabelText(input.id, settings[input.id]) + ` (${settings[input.id]}${unit})`;
+                    const labelText = this.getLabelText(input.id);
+                    label.textContent = `${labelText} (${settings[input.id]}${unit})`;
                 }
+                
+                // Update demo
+                this.updateDemoElement(input.id, settings[input.id], input);
             }
         });
     }
