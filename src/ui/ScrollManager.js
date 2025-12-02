@@ -3,20 +3,21 @@ export class ScrollManager {
         this.button = buttonElement;
         this.sidebar = sidebarElement;
         this.lastScrollY = window.scrollY;
+        this.animationId = null;
+        this.isScrolling = false;
         this.setupScrollFollowing();
         this.updatePosition(); // Immediate positioning on load
     }
 
     setupScrollFollowing() {
-        let ticking = false;
-        
         const updatePosition = () => {
             const scrollY = window.scrollY;
             
-            if (Math.abs(scrollY - this.lastScrollY) > 1) {
+            // Smooth following - no jumping
+            if (Math.abs(scrollY - this.lastScrollY) > 0) {
                 this.lastScrollY = scrollY;
                 
-                // Update button position to follow scroll
+                // Update button position smoothly
                 this.button.style.top = `${20 + scrollY}px`;
                 this.button.style.bottom = 'auto';
                 
@@ -24,17 +25,35 @@ export class ScrollManager {
                     this.sidebar.style.top = `${scrollY}px`;
                 }
             }
-            ticking = false;
+            
+            if (this.isScrolling) {
+                this.animationId = requestAnimationFrame(updatePosition);
+            }
         };
         
         const onScroll = () => {
-            if (!ticking) {
-                requestAnimationFrame(updatePosition);
-                ticking = true;
+            if (!this.isScrolling) {
+                this.isScrolling = true;
+                this.animationId = requestAnimationFrame(updatePosition);
+            }
+        };
+        
+        const onScrollEnd = () => {
+            this.isScrolling = false;
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+                this.animationId = null;
             }
         };
         
         window.addEventListener('scroll', onScroll, { passive: true });
+        
+        // Use timeout to detect scroll end
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(onScrollEnd, 100);
+        }, { passive: true });
     }
 
     updatePosition() {

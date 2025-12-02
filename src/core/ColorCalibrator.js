@@ -6,62 +6,81 @@ export class ColorCalibrator {
         this.settingsManager = new SettingsManager();
         this.profileManager = new ProfileManager();
         this.isOpen = false;
+        this.transitionEnabled = false;
+        this.initialized = false;
     }
 
-    applySettings(settings = null) {
+    init() {
+        // Apply initial settings without animation
+        this.applySettings(null, false);
+        this.initialized = true;
+    }
+
+    enableTransitions(enable = true) {
+        this.transitionEnabled = enable;
+        const root = document.documentElement;
+        if (enable) {
+            root.style.setProperty('--calibrator-transition', 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)');
+            document.body.style.transition = 'filter 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-size 0.4s ease, line-height 0.4s ease, letter-spacing 0.4s ease';
+        } else {
+            root.style.setProperty('--calibrator-transition', 'none');
+            document.body.style.transition = 'none';
+        }
+    }
+
+    applySettings(settings = null, animate = false) {
+        // Don't animate on initial load
+        if (animate && this.initialized) {
+            this.enableTransitions(true);
+        }
+        
         const currentSettings = settings || this.settingsManager.getSettings();
         const root = document.documentElement;
         
-        // Apply CSS custom properties to the entire document
+        // Apply CSS custom properties
         root.style.setProperty('--calibrator-font-size', `${currentSettings.fontSize}px`);
         root.style.setProperty('--calibrator-line-height', currentSettings.lineHeight);
         root.style.setProperty('--calibrator-letter-spacing', `${currentSettings.letterSpacing}px`);
         
-        // Apply font properties directly to all elements
+        // Apply font properties directly
         this.applyFontProperties(currentSettings);
         
-        // Build filter string with gamma simulation
+        // Build filter string
         let filter = this.buildFilterString(currentSettings);
         
-        // Apply filter to the ENTIRE HTML document (including calibrator)
+        // Apply filter
         document.documentElement.style.filter = filter;
-        
-        // Also apply to body for backward compatibility
         document.body.style.filter = filter;
+
+        // Disable transitions after animation completes
+        if (animate && this.initialized) {
+            setTimeout(() => {
+                this.enableTransitions(false);
+            }, 400);
+        }
 
         return currentSettings;
     }
 
     buildFilterString(settings) {
-        // Gamma correction simulation
-        // CSS doesn't have gamma() filter, so we simulate it with brightness/contrast
         let gamma = parseFloat(settings.gamma);
-        
-        // Calculate gamma-adjusted brightness and contrast
-        // Gamma < 1: brighten midtones (increase brightness, reduce contrast)
-        // Gamma > 1: darken midtones (reduce brightness, increase contrast)
         let gammaBrightness = 100;
         let gammaContrast = 100;
         
         if (gamma < 1.0) {
-            // Brighten: increase brightness, reduce contrast
-            gammaBrightness = 100 + ((1 - gamma) * 50); // 100% to 150%
-            gammaContrast = 100 - ((1 - gamma) * 30); // 100% to 70%
+            gammaBrightness = 100 + ((1 - gamma) * 50);
+            gammaContrast = 100 - ((1 - gamma) * 30);
         } else if (gamma > 1.0) {
-            // Darken: reduce brightness, increase contrast
-            gammaBrightness = 100 - ((gamma - 1) * 30); // 100% to 70%
-            gammaContrast = 100 + ((gamma - 1) * 50); // 100% to 150%
+            gammaBrightness = 100 - ((gamma - 1) * 30);
+            gammaContrast = 100 + ((gamma - 1) * 50);
         }
         
-        // Combine user brightness/contrast with gamma adjustments
         const userBrightness = parseFloat(settings.brightness);
         const userContrast = parseFloat(settings.contrast);
         
-        // Multiply adjustments (percentages are multiplicative)
         const totalBrightness = (userBrightness / 100) * gammaBrightness;
         const totalContrast = (userContrast / 100) * gammaContrast;
         
-        // Build the filter string
         return `
             brightness(${totalBrightness}%)
             contrast(${totalContrast}%)
@@ -73,15 +92,10 @@ export class ColorCalibrator {
     }
 
     applyFontProperties(settings) {
-        // Apply font properties to all elements that should be affected
-        const allElements = document.querySelectorAll('*');
-        
-        // Apply to body first (this will affect everything)
         document.body.style.fontSize = `${settings.fontSize}px`;
         document.body.style.lineHeight = settings.lineHeight;
         document.body.style.letterSpacing = `${settings.letterSpacing}px`;
         
-        // Also apply to html element for consistency
         document.documentElement.style.fontSize = `${settings.fontSize}px`;
         document.documentElement.style.lineHeight = settings.lineHeight;
         document.documentElement.style.letterSpacing = `${settings.letterSpacing}px`;
@@ -89,13 +103,13 @@ export class ColorCalibrator {
 
     updateSetting(key, value) {
         const newSettings = this.settingsManager.updateSetting(key, value);
-        this.applySettings(newSettings);
+        this.applySettings(newSettings, true); // Animate user changes
         return newSettings;
     }
 
     resetSettings() {
         const defaultSettings = this.settingsManager.resetSettings();
-        this.applySettings(defaultSettings);
+        this.applySettings(defaultSettings, true); // Animate reset
         return defaultSettings;
     }
 
@@ -107,7 +121,7 @@ export class ColorCalibrator {
         const profile = this.profileManager.getVisionProfile(profileName);
         if (profile) {
             const newSettings = this.settingsManager.setSettings(profile);
-            this.applySettings(newSettings);
+            this.applySettings(newSettings, true); // Animate profile changes
             return newSettings;
         }
         return null;
@@ -121,7 +135,7 @@ export class ColorCalibrator {
         const profile = this.profileManager.loadCustomProfile(profileName);
         if (profile) {
             const newSettings = this.settingsManager.setSettings(profile);
-            this.applySettings(newSettings);
+            this.applySettings(newSettings, true); // Animate profile changes
             return newSettings;
         }
         return null;

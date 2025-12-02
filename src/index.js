@@ -11,7 +11,10 @@ class ColorCalibratorApp {
     }
 
     init() {
-        // Create UI components immediately
+        // Initialize calibrator (applies settings without animation)
+        this.calibrator.init();
+        
+        // Create UI components
         this.button = new Button(() => this.toggleSidebar());
         this.sidebar = new Sidebar(
             this.calibrator,
@@ -20,28 +23,11 @@ class ColorCalibratorApp {
             (action, data) => this.onProfileAction(action, data)
         );
         
-        // Setup scroll following immediately
+        // Setup scroll following
         this.scrollManager = new ScrollManager(
             this.button.getElement(),
             this.sidebar.getElement()
         );
-
-        // Apply initial settings
-        this.calibrator.applySettings();
-
-        // Force immediate visibility
-        this.ensureButtonVisibility();
-    }
-
-    ensureButtonVisibility() {
-        // Double-check button is visible
-        const button = this.button.getElement();
-        button.style.display = 'block';
-        button.style.visibility = 'visible';
-        button.style.opacity = '1';
-        
-        // Force a reflow to ensure styles are applied
-        button.offsetHeight;
     }
 
     toggleSidebar() {
@@ -97,7 +83,7 @@ class ColorCalibratorApp {
     }
 }
 
-// Initialize immediately when DOM is ready
+// Initialize when DOM is ready
 function initializeApp() {
     window.colorCalibrator = new ColorCalibratorApp();
     
