@@ -28,77 +28,118 @@ export class Sidebar {
                 <button class="close-btn">×</button>
             </div>
             <div class="calibrator-content">
+                <!-- Text & Font Section -->
                 <div class="control-section">
                     <h4>Text & Font</h4>
                     <div class="control-group">
-                        <label>Font Size</label>
+                        <label>Font Size (${settings.fontSize}px)</label>
                         <input type="range" id="fontSize" min="12" max="32" value="${settings.fontSize}">
-                        <span class="value">${settings.fontSize}px</span>
+                        <div class="demo-box text-demo">
+                            This text shows current font size
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Line Height</label>
+                        <label>Line Height (${settings.lineHeight})</label>
                         <input type="range" id="lineHeight" min="1" max="2.5" step="0.1" value="${settings.lineHeight}">
-                        <span class="value">${settings.lineHeight}</span>
+                        <div class="demo-box text-demo">
+                            Multiple lines<br>to demonstrate<br>line height
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Letter Spacing</label>
+                        <label>Letter Spacing (${settings.letterSpacing}px)</label>
                         <input type="range" id="letterSpacing" min="-2" max="5" step="0.1" value="${settings.letterSpacing}">
-                        <span class="value">${settings.letterSpacing}px</span>
+                        <div class="demo-box text-demo">
+                            Spacing between letters
+                        </div>
                     </div>
                 </div>
 
+                <!-- Color Adjustments Section -->
                 <div class="control-section">
                     <h4>Color Adjustments</h4>
                     <div class="control-group">
-                        <label>Brightness</label>
+                        <label>Brightness (${settings.brightness}%)</label>
                         <input type="range" id="brightness" min="50" max="200" value="${settings.brightness}">
-                        <span class="value">${settings.brightness}%</span>
+                        <div class="demo-box color-demo">
+                            <div class="color-swatch primary"></div>
+                            <div class="color-swatch secondary"></div>
+                            <div class="color-swatch success"></div>
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Contrast</label>
+                        <label>Contrast (${settings.contrast}%)</label>
                         <input type="range" id="contrast" min="50" max="200" value="${settings.contrast}">
-                        <span class="value">${settings.contrast}%</span>
+                        <div class="demo-box">
+                            <div style="display: flex; gap: 10px;">
+                                <div style="background: #333; color: #fff; padding: 5px; border-radius: 3px; flex: 1;">Dark</div>
+                                <div style="background: #fff; color: #333; padding: 5px; border-radius: 3px; border: 1px solid #ccc; flex: 1;">Light</div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Saturation</label>
+                        <label>Saturation (${settings.saturation}%)</label>
                         <input type="range" id="saturation" min="0" max="200" value="${settings.saturation}">
-                        <span class="value">${settings.saturation}%</span>
+                        <div class="demo-box color-demo">
+                            <div style="background: #ff4444; width: 30px; height: 30px; border-radius: 4px;"></div>
+                            <div style="background: #44ff44; width: 30px; height: 30px; border-radius: 4px;"></div>
+                            <div style="background: #4444ff; width: 30px; height: 30px; border-radius: 4px;"></div>
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Hue Rotation</label>
+                        <label>Hue Rotation (${settings.hueRotate}deg)</label>
                         <input type="range" id="hueRotate" min="0" max="360" value="${settings.hueRotate}">
-                        <span class="value">${settings.hueRotate}deg</span>
+                        <div class="demo-box">
+                            <div style="display: flex; gap: 5px; justify-content: center;">
+                                <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border-radius: 3px;"></div>
+                                <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border-radius: 3px;"></div>
+                                <div style="width: 20px; height: 20px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); border-radius: 3px;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Advanced Color Section -->
                 <div class="control-section">
                     <h4>Advanced Color</h4>
                     <div class="control-group">
-                        <label>Gamma</label>
+                        <label>Gamma (${settings.gamma})</label>
                         <input type="range" id="gamma" min="0.5" max="2.5" step="0.1" value="${settings.gamma}">
-                        <span class="value">${settings.gamma}</span>
+                        <div class="demo-box advanced-demo">
+                            <div class="demo-item">Mid Tone</div>
+                            <div class="demo-item" style="background: #ccc;">Light</div>
+                            <div class="demo-item" style="background: #666; color: white;">Dark</div>
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Invert</label>
+                        <label>Invert (${settings.invert}%)</label>
                         <input type="range" id="invert" min="0" max="100" value="${settings.invert}">
-                        <span class="value">${settings.invert}%</span>
+                        <div class="demo-box advanced-demo">
+                            <div class="demo-item" style="background: black; color: white;">Black</div>
+                            <div class="demo-item" style="background: white; color: black; border: 1px solid #ccc;">White</div>
+                        </div>
                     </div>
                     
                     <div class="control-group">
-                        <label>Sepia</label>
+                        <label>Sepia (${settings.sepia}%)</label>
                         <input type="range" id="sepia" min="0" max="100" value="${settings.sepia}">
-                        <span class="value">${settings.sepia}%</span>
+                        <div class="demo-box">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                <div style="width: 40px; height: 40px; background: #8B4513; border-radius: 4px;"></div>
+                                <span>Vintage Tone</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Vision Simulation Profiles -->
                 <div class="control-section">
-                    <h4>Accessibility Profiles</h4>
+                    <h4>Vision Simulation Profiles</h4>
                     
                     <div class="profile-category">
                         <h5>Color Blindness</h5>
@@ -136,6 +177,7 @@ export class Sidebar {
                     </div>
                 </div>
 
+                <!-- Custom Profiles -->
                 <div class="control-section">
                     <h4>Custom Profiles</h4>
                     <div class="profile-controls">
@@ -248,37 +290,60 @@ export class Sidebar {
             });
         });
 
-        // Input listeners
+        // Input listeners with live updates
         const inputs = this.element.querySelectorAll('input[type="range"]');
         inputs.forEach(input => {
             input.addEventListener('input', (e) => {
-                this.updateValueDisplay(e.target);
-                this.onSettingChange(e.target.id, e.target.value);
+                const id = e.target.id;
+                const value = e.target.value;
+                
+                // Update label text
+                const label = e.target.parentElement.querySelector('label');
+                if (label) {
+                    const unit = id === 'fontSize' ? 'px' : 
+                                 id === 'lineHeight' ? '' : 
+                                 id === 'letterSpacing' ? 'px' : 
+                                 id === 'hueRotate' ? 'deg' : '%';
+                    label.textContent = this.getLabelText(id, value) + ` (${value}${unit})`;
+                }
+                
+                this.onSettingChange(id, value);
             });
         });
     }
 
-    updateValueDisplay(input) {
-        const valueDisplay = input.nextElementSibling;
-        if (valueDisplay && valueDisplay.classList.contains('value')) {
-            if (input.id === 'gamma' || input.id === 'lineHeight') {
-                valueDisplay.textContent = input.value;
-            } else if (input.id === 'letterSpacing') {
-                valueDisplay.textContent = input.value + 'px';
-            } else if (input.id === 'hueRotate') {
-                valueDisplay.textContent = input.value + 'deg';
-            } else {
-                valueDisplay.textContent = input.value + '%';
-            }
-        }
+    getLabelText(id, value) {
+        const labels = {
+            'fontSize': 'Font Size',
+            'lineHeight': 'Line Height',
+            'letterSpacing': 'Letter Spacing',
+            'brightness': 'Brightness',
+            'contrast': 'Contrast',
+            'saturation': 'Saturation',
+            'hueRotate': 'Hue Rotation',
+            'gamma': 'Gamma',
+            'invert': 'Invert',
+            'sepia': 'Sepia'
+        };
+        return labels[id] || id;
     }
 
     updateUI(settings) {
+        // Update all sliders
         const inputs = this.element.querySelectorAll('input[type="range"]');
         inputs.forEach(input => {
             if (settings[input.id] !== undefined) {
                 input.value = settings[input.id];
-                this.updateValueDisplay(input);
+                
+                // Update label
+                const label = input.parentElement.querySelector('label');
+                if (label) {
+                    const unit = input.id === 'fontSize' ? 'px' : 
+                                 input.id === 'lineHeight' ? '' : 
+                                 input.id === 'letterSpacing' ? 'px' : 
+                                 input.id === 'hueRotate' ? 'deg' : '%';
+                    label.textContent = this.getLabelText(input.id, settings[input.id]) + ` (${settings[input.id]}${unit})`;
+                }
             }
         });
     }
