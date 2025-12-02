@@ -6,44 +6,18 @@ export class ColorCalibrator {
         this.settingsManager = new SettingsManager();
         this.profileManager = new ProfileManager();
         this.isOpen = false;
-        this.pageWrapper = null;
-        this.initPageWrapper();
-    }
-
-    initPageWrapper() {
-        // Create or get a wrapper for all page content
-        this.pageWrapper = document.getElementById('color-calibrator-wrapper');
-        if (!this.pageWrapper) {
-            this.pageWrapper = document.createElement('div');
-            this.pageWrapper.id = 'color-calibrator-wrapper';
-            this.pageWrapper.className = 'color-calibrator-page-wrapper';
-            
-            // Move all existing body content into the wrapper (except our calibrator elements)
-            const bodyChildren = Array.from(document.body.children);
-            bodyChildren.forEach(child => {
-                if (!child.classList.contains('calibrator-btn') && 
-                    !child.classList.contains('calibrator-sidebar') &&
-                    child.id !== 'color-calibrator-wrapper') {
-                    this.pageWrapper.appendChild(child);
-                }
-            });
-            
-            document.body.appendChild(this.pageWrapper);
-        }
     }
 
     applySettings(settings = null) {
         const currentSettings = settings || this.settingsManager.getSettings();
         const root = document.documentElement;
         
-        // Apply CSS custom properties to the wrapper
-        if (this.pageWrapper) {
-            this.pageWrapper.style.setProperty('--calibrator-font-size', `${currentSettings.fontSize}px`);
-            this.pageWrapper.style.setProperty('--calibrator-line-height', currentSettings.lineHeight);
-            this.pageWrapper.style.setProperty('--calibrator-letter-spacing', `${currentSettings.letterSpacing}px`);
-        }
+        // Apply CSS custom properties to root for EVERYTHING
+        root.style.setProperty('--calibrator-font-size', `${currentSettings.fontSize}px`);
+        root.style.setProperty('--calibrator-line-height', currentSettings.lineHeight);
+        root.style.setProperty('--calibrator-letter-spacing', `${currentSettings.letterSpacing}px`);
         
-        // Build filter string
+        // Create a filter string for EVERYTHING
         let filter = `
             brightness(${currentSettings.brightness}%)
             contrast(${currentSettings.contrast}%)
@@ -53,15 +27,50 @@ export class ColorCalibrator {
             sepia(${currentSettings.sepia}%)
         `;
         
-        // Apply filter to the page wrapper (not body)
-        if (this.pageWrapper) {
-            this.pageWrapper.style.filter = filter;
-        } else {
-            // Fallback to body if wrapper doesn't exist
-            document.body.style.filter = filter;
-        }
+        // Apply to entire page wrapper (creates one if doesn't exist)
+        this.applyFiltersToPage(filter);
+        
+        // Also apply gamma separately if needed
+        this.applyGamma(currentSettings.gamma);
 
         return currentSettings;
+    }
+
+    applyFiltersToPage(filter) {
+        // Get or create page wrapper
+        let wrapper = document.querySelector('.page-content-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'page-content-wrapper';
+            
+            // Move all existing body children except calibrator elements into wrapper
+            const bodyChildren = Array.from(document.body.children);
+            bodyChildren.forEach(child => {
+                if (!child.classList?.contains('calibrator-btn') && 
+                    !child.classList?.contains('calibrator-sidebar') &&
+                    child.id !== 'color-calibrator-wrapper') {
+                    wrapper.appendChild(child);
+                }
+            });
+            
+            document.body.appendChild(wrapper);
+        }
+        
+        // Apply filter to wrapper
+        wrapper.style.filter = filter;
+        
+        // Also apply to body for good measure
+        document.body.style.filter = filter;
+    }
+
+    applyGamma(gammaValue) {
+        // Apply gamma correction using contrast/brightness approximation
+        const wrapper = document.querySelector('.page-content-wrapper');
+        if (wrapper) {
+            // Remove any existing gamma styles
+            wrapper.style.filter = wrapper.style.filter.replace(/brightness\([^)]*\)/g, '');
+            wrapper.style.filter += ` brightness(${Math.pow(gammaValue, 0.5)})`;
+        }
     }
 
     updateSetting(key, value) {

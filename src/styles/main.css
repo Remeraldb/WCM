@@ -4,28 +4,9 @@
     --calibrator-letter-spacing: 0px;
 }
 
-/* Page wrapper that receives all filters and styles */
-.color-calibrator-page-wrapper {
-    min-height: 100vh;
-    transition: filter 0.3s ease;
-    background: inherit; /* Inherit background from body */
-}
-
-/* Apply base styles to ALL elements in the page wrapper */
-.color-calibrator-page-wrapper * {
+/* Apply font styles to page content */
+body {
     font-size: var(--calibrator-font-size);
     line-height: var(--calibrator-line-height);
     letter-spacing: var(--calibrator-letter-spacing);
-}
-
-/* Ensure body has proper background for the wrapper */
-body {
-    margin: 0;
-    padding: 0;
-    background: white; /* Ensure body has a background */
-}
-
-/* Reset any filter on body when using wrapper */
-body {
-    filter: none !important;
 }
